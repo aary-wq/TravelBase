@@ -1,0 +1,82 @@
+<% layout('/layouts/boiler.ejs') %>
+<body style="background: #f8f9fa;">
+<div class="edit-container">
+    <h2 class="edit-title">Edit Listing</h2>
+
+    <form action="/listings/<%= listing._id %>?_method=PUT" method="post"
+          class="needs-validation" enctype="multipart/form-data" novalidate>
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input required type="text" name="listings[title]" value="<%= listing.title%>"
+                   placeholder="Enter title" class="form-control">
+            <div class="invalid-feedback">Please enter a catchy title</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea name="listings[description]" class="form-control" 
+                      placeholder="Detailed Description..." required><%= listing.description%></textarea>
+            <div class="invalid-feedback">Please enter a short description</div>
+        </div>
+
+        <div class="mb-3 text-center">
+            <p class="mb-1 fw-semibold">Previously Uploaded Image</p>
+            <img src="<%= originalImg %>" height="200" width="230" class="edit-img-preview" alt="Preview Not Available">
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Upload New Image</label>
+            <input type="file" name="listings[image]" class="form-control">
+        </div>
+
+        <div class="row">
+            <div class="mb-3 col-md-3">
+                <label for="price" class="form-label">Price</label>
+                <input type="number" name="listings[price]" value="<%= listing.price %>" placeholder="2100000" 
+                       class="form-control" required>
+                <div class="invalid-feedback">Please enter a valid price</div>
+            </div>
+            <div class="mb-3 col-md-9">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" name="listings[location]" value="<%= listing.location%>" 
+                       placeholder="Pune, Maharashtra" class="form-control" required>
+                <div class="invalid-feedback">Please enter address</div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="country" class="form-label">Country</label>
+            <input type="text" name="listings[country]" value="<%= listing.country %>" 
+                   placeholder="India" class="form-control" required>
+            <div class="invalid-feedback">Please enter a country name</div>
+        </div>
+
+        <div class="text-center mt-4">
+            <button class="btn btn-danger">Edit Listing</button>
+        </div>
+    </form>
+</div>
+</body>
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEW List</title>
+</head>
+<body>
+    <form action="/listings/<%= listing._id %>?_method=PUT" method="post">
+        <input type="text" placeholder="enter title" name="listings[title]" value="<%= listing.title%>">
+        <textarea placeholder="enter description" name="listings[description]"><%= listing.description%></textarea> 
+        <input type="text" placeholder="enter image URL" name="listings[image]" value="<%= listing.image%>">
+        <input type="text" placeholder="enter price" name="listings[price]" value="<%= listing.price%>">
+        <input type="text" placeholder="enter location" name="listings[location]" value="<%= listing.location%>">
+        <input type="text" placeholder="enter country" name="listings[country]" value="<%= listing.country%>">
+        <button>Edit Listing</button>
+    </form>  
+</body>
+</html> -->

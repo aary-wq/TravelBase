@@ -1,0 +1,35 @@
+<% layout("/layouts/boiler.ejs") %>
+<body>
+  <section class="login-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <!-- col-12 for mobile, col-md-8 for tablets, col-lg-5 for desktops -->
+        <div class="col-12 col-sm-10 col-md-8 col-lg-5">
+          <form action="/users/login" method="post" class="needs-validation" novalidate>
+            <div class="login-card">
+              <h2>Login on AirBnb</h2>
+
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" placeholder="Enter username" name="users[username]" class="form-control" required>
+                <div class="invalid-feedback">Please enter username</div>
+              </div>
+
+              <div class="mb-4">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" placeholder="Enter password" name="users[password]" class="form-control" required>
+                <div class="invalid-feedback">Please enter a valid password</div>
+              </div>
+
+              <button class="btn btn-danger w-100 py-2">Login</button>
+
+              <div class="signup-link">
+                New user? <a href="/users/signup">Create account</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>

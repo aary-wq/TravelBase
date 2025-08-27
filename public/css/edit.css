@@ -1,0 +1,96 @@
+
+    /* Card container same as create page */
+    .edit-container {
+        background: #fff;
+        max-width: 700px;
+        margin: 2rem auto;
+        padding: 2rem 2.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    /* Title style */
+    .edit-title {
+        text-align: center;
+        font-weight: 700;
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+    }
+    .edit-title::after {
+        content: "";
+        display: block;
+        width: 60px;
+        height: 3px;
+        background-color: #d93025; /* red underline */
+        margin: 0.5rem auto 0;
+        border-radius: 2px;
+    }
+    /* Labels */
+    .form-label {
+        font-weight: 500;
+        margin-bottom: 0.3rem;
+    }
+    /* Form controls */
+    .form-control {
+        border-radius: 6px;
+        padding: 0.55rem 0.75rem;
+        border: 1px solid #ccc;
+        transition: all 0.2s ease;
+    }
+    .form-control:focus {
+        border-color: #d93025;
+        box-shadow: 0 0 0 0.15rem rgba(217,48,37,0.25);
+    }
+    /* Image preview */
+    .edit-img-preview {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: #f9f9f9;
+        padding: 4px;
+    }
+    /* Button */
+    .btn-danger {
+        background-color: #d93025;
+        border-color: #d93025;
+        padding: 0.6rem 1.5rem;
+        font-weight: 500;
+        border-radius: 8px;
+    }
+    .btn-danger:hover {
+        background-color: #b7281e;
+        border-color: #b7281e;
+    }
+    /* Responsive form padding */
+    @media (max-width: 768px) {
+        .edit-container {
+            padding: 1.5rem;
+        }
+    }
+
+.listing-card
+{
+    width: 21rem !important;
+    margin-top: 1.3rem;
+    border: none !important;
+}
+
+.card-img-top{
+border-radius: 1rem;
+object-fit: cover !important;
+height: 15rem !important;
+}
+
+.row a
+{
+    text-decoration: none;
+}
+
+.show-col
+{
+    display: flex;
+    margin-bottom:1.5rem ;
+}
+.btn-delete
+{
+    margin-left: 3.2rem;
+}

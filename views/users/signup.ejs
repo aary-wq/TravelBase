@@ -1,0 +1,76 @@
+<% layout("/layouts/boiler.ejs") %>
+<body>
+ 
+
+  <section class="signup-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <!-- Responsive column sizes -->
+        <div class="col-12 col-sm-10 col-md-8 col-lg-5">
+          <form action="/users/signup" method="post" class="needs-validation" novalidate>
+            <div class="signup-card">
+              <h2>Register on AirBnb</h2>
+
+              <div class="mb-3"> 
+                <label for="username" class="form-label">Username</label>
+                <input type="text" placeholder="Enter username" name="users[username]" class="form-control" required minlength="3" id="username">
+                <div class="invalid-feedback"></div>
+              </div>
+              
+              <div class="mb-3"> 
+                <label for="email" class="form-label">E-mail</label>
+                <input type="email" name="users[email]" class="form-control" placeholder="Enter e-mail" required>
+                <div class="invalid-feedback">Please enter a valid e-mail</div>
+              </div>
+              
+              <div class="mb-4">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" placeholder="Enter password" name="users[password]" class="form-control" required minlength="3" id="password">
+                <div class="invalid-feedback"></div>
+              </div>
+              
+              <button class="btn btn-danger w-100 py-2">Register</button>
+
+              <div class="signin-link">
+                Already have an account? <a href="/users/login">Sign in</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const passwordInput = document.getElementById("password");
+    const usernameInput = document.getElementById("username");
+    const feedback = passwordInput.nextElementSibling;
+    const usfeedback = usernameInput.nextElementSibling;
+  
+    passwordInput.addEventListener("input", () => {
+      if (passwordInput.validity.valueMissing) {
+        passwordInput.setCustomValidity("Pl enter a valid password");
+        feedback.textContent = "Pl enter a valid password";
+      } else if (passwordInput.validity.tooShort) {
+        passwordInput.setCustomValidity("Password should be at least 3 characters.");
+        feedback.innerHTML = "Password should be at least 3 characters.";
+      } else {
+        passwordInput.setCustomValidity("");
+        feedback.textContent = "";
+      }
+    });
+
+    usernameInput.addEventListener("input", () => {
+      if (usernameInput.validity.valueMissing) {
+        usernameInput.setCustomValidity("Pl enter a valid username");
+        usfeedback.textContent = "Pl enter a valid username";
+      } else if (usernameInput.validity.tooShort) {
+       usernameInput.setCustomValidity("Username should be at least 3 characters.");
+        usfeedback.textContent = "Username should be at least 3 characters.";
+      } else {
+        usernameInput.setCustomValidity("");
+        usfeedback.textContent = "";
+      }
+    });
+  </script>
+</body>

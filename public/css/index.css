@@ -1,0 +1,93 @@
+
+  /* Filters container */
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 1rem 0;
+    justify-content: center;
+    background: transparent;
+  }
+
+  /* Each filter item */
+  .filter {
+  text-align: center;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.filter i {
+  font-size: 1.7rem;
+  color: #555;
+  display: block;
+  margin-bottom: 0.3rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.filter p {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #444;
+  transition: color 0.3s ease;
+}
+
+.filter:hover i,
+.filter:hover p {
+  color: #d93025;
+}
+
+.filter:hover i {
+  transform: scale(1.15);
+}
+
+
+  /* Tax toggle pill - minimal */
+  #toggler {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    border: 1px solid #ccc;
+    background: #fafafa;
+    margin-left: auto;
+    /* cursor: pointer; */
+  }
+
+  .form-check-label {
+    font-weight: 500;
+    color: #444;
+    cursor: pointer;
+  }
+
+  .tax {
+    display: none;
+    margin-left: 0.3rem;
+    font-size: 0.85rem;
+    color: #6c757d;
+  }
+
+  @media (max-width: 768px) {
+    .filters {
+      gap: 1rem;
+    }
+    #toggler {
+      margin: 1rem auto;
+    }
+  }
+  .listing-index-card
+{
+  padding: 0.7rem;
+  margin: 0.2rem;
+  overflow: hidden;
+}
+.listing-index-card:hover{
+  opacity: 0.6; 
+}
+.card-body{
+  width: 35rem !important;
+  padding: 1% !important;
+  margin-top: 0.85rem;
+}

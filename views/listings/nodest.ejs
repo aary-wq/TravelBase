@@ -1,0 +1,23 @@
+<% layout('/layouts/boiler.ejs') %>
+<body>
+    <div class="d-flex justify-content-center align-items-center min-vh-100">
+      <div class="text-center">
+        <i class="fa fa-search fa-3x text-muted mb-3"></i>
+        <h2 class="text-muted">No results found for "<%= dest %>"</h2>
+        <p class="text-secondary">Try changing your search filters or keywords.</p>
+      </div>
+    </div>
+
+  <script>
+  const currentPath = window.location.pathname;
+
+console.log(currentPath);
+if (currentPath === "/listings/destination") {
+    let search_inp = document.querySelector(".search");
+    if (search_inp) {
+        search_inp.value = "<%= dest %>";
+    }
+}
+  </script>
+  </body>
+  

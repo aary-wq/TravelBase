@@ -1,0 +1,169 @@
+<% layout('/layouts/boiler.ejs') %>
+<body>
+  <div class="col">
+    <div class="card offset-3 listing-card">
+      <img src="<%= listing.image.url %>" class="card-img-top" alt="">
+      <div class="card-body mt-2 mb-5">
+        <p class="card-text"><i>Owned By</i> : <i><%= listing.owner.username %></i></p>
+        <p class="card-text"><h5><%= listing.title %></h5></li></p>
+        <p class="card-text"> <%= listing.description %></p>
+        <p class="card-text"> <b>PRICE: &nbsp;&nbsp;</b>&#8377; <%= listing.price.toLocaleString("en-IN")%></p>
+        <p class="card-text"> <b>Location: &nbsp;&nbsp;</b><%= listing.location %></p>
+        <p class="card-text"> <b>Country: &nbsp;&nbsp;</b><%= listing.country %></p>
+        <p class="card-text"> <b>Main Feature: &nbsp;&nbsp;</b><%= listing.feature %></p>
+      </div>
+    </div>
+  </div>
+
+<% if(currUser && listing.owner._id.equals(currUser._id)) {%>
+  <div class="row">
+    <div class="col show-col offset-4">
+      <a class="btn btn-danger" href="/listings/<%= listing._id %>/edit">Edit listing</a>
+      <form action="/listings/<%= listing._id %>?_method=DELETE&from=<%= fromPage %>" method="post"> 
+        <button class="btn btn-danger btn-delete">Delete Listing</button>
+      </form>
+    </div>
+  </div>
+  <% } %>
+  <hr>
+
+  <% if(currUser && !listing.owner._id.equals(currUser._id) || !currUser) {%>
+  <form action="/listings/<%= listing._id %>/reviews" method="post">
+    <div class="col">
+      <h3 class="mb-3" style="margin-top: 0.4rem;">Post a Review</h3>
+
+      <!-- <div class="mb-3"> 
+        <label for="rating" class="form-label">Rating: </label>
+        <input type="range" placeholder="enter title" name="review[rating]" class="form-range" min="1" max="5">
+      </div> -->
+
+       <div class="mb-3"> 
+        <label for="rating" class="form-label">Rating: </label>
+      <fieldset class="starability-coinFlip">
+        <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+        <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+        <label for="first-rate1" title="Poor">1 star</label>
+        <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+        <label for="first-rate2" title="Not good">2 stars</label>
+        <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+        <label for="first-rate3" title="Average">3 stars</label>
+        <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+        <label for="first-rate4" title="Very good">4 stars</label>
+        <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+        <label for="first-rate5" title="Excellent">5 stars</label>
+      </fieldset>
+    </div> 
+
+      <div class="mb-3"> 
+        <label for="comment" class="form-label">Write a Comment: </label>
+        <textarea name="review[comment]" class="form-control" required></textarea>
+      </div>
+
+      <div class="col mb-3 offset-5">
+        <button class="btn btn-danger">Post Review</button>
+      </div>
+    </div>
+  </form>
+  <% } %>
+
+
+  <div class="container py-5">
+    <% if (listing.reviews.length > 0) { %>
+      <div class="mb-5 text-center">
+        <h2 class="fw-bold text-dark">All Reviews</h2>
+        <p class="text-muted">What people are saying about this listing</p>
+      </div>
+  
+      <div class="row g-4">
+        <% for (let review of listing.reviews) { %>
+          <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm border-0 review-card p-3">
+              <div class="card-body d-flex flex-column justify-content-between">
+                <div class="mb-3">
+                  <h5 class="card-title text-primary fw-semibold d-flex align-items-center"><i class="bi bi-person-circle me-2 fs-5"></i>@<%=review.creator.username %></h5>
+                  <p class="card-text text-normal"><%= review.comment %></p>
+                </div>
+                <div class="row align-items-center">
+                  <div class="col-auto me-5">
+                    <span class="badge bg-warning text-dark px-3 py-2 fs-6">
+                      <%= review.rating %> ★
+                    </span>
+                  </div>
+                  <% if(currUser && review.creator && currUser._id.equals(review.creator._id)) { %>
+                  <div class="col-auto ms-5">
+                    <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
+                      <button class="btn btn-sm btn-primary">Delete</button>
+                    </form>
+                  </div>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% } %>
+      </div>
+    <% } else { %>
+      <div class="text-center text-muted ">
+        <h5>No reviews yet.</h5>
+      </div>
+    <% } %>
+  </div>
+  
+  <div class="container my-4">
+    <h3 style="text-align: center">Directions / Location</h3><br>
+    <div id="map"></div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const location = "<%= listing.location %>"; 
+      const title = "<%= listing.title %>";
+  
+      const mapContainer = document.getElementById("map");
+      const mapHeading = document.querySelector("h3[style*='text-align: center']");
+  
+      fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}&limit=1`)
+        .then(res => res.json())
+        .then(data => {
+          if (!data.length || !data[0].lat || !data[0].lon) {
+            // Hide map and heading if location is invalid
+            if (mapContainer) mapContainer.style.display = "none";
+            if (mapHeading && mapHeading.textContent.includes("Directions")) {
+              mapHeading.style.display = "none";
+            }
+            return;
+          }
+  
+          const lat = data[0].lat;
+          const lon = data[0].lon;
+  
+          const map = L.map('map').setView([lat, lon], 13);
+  
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+          }).addTo(map);
+  
+          const redIcon = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+            shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34]
+          });
+  
+          L.marker([lat, lon], { icon: redIcon }).addTo(map)
+            .bindPopup(title+"-> "+location)
+            .openPopup();
+        })
+        .catch(err => {
+          console.error("Geocoding error:", err);
+          if (mapContainer) mapContainer.style.display = "none";
+          if (mapHeading && mapHeading.textContent.includes("Directions")) {
+            mapHeading.style.display = "none";
+          }
+        });
+    });
+  </script>
+  
+
+</body>

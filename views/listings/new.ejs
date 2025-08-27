@@ -1,0 +1,70 @@
+<% layout('/layouts/boiler.ejs') %>
+<body>
+    <div class="container col-lg-8 col-md-10 mb-5">
+        <form action="/listings" method="post" class="needs-validation form-container" novalidate enctype="multipart/form-data">
+            <h2>Create a New Listing</h2>
+
+            <!-- Title -->
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" placeholder="Enter a catchy title" name="listings[title]" class="form-control" required>
+                <div class="invalid-feedback">Please enter a catchy title</div>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3"> 
+                <label for="description" class="form-label">Description</label>
+                <textarea name="listings[description]" class="form-control" rows="3" placeholder="Briefly describe the property..." required></textarea>
+                <div class="invalid-feedback">Please enter a short description</div>
+            </div>
+
+            <!-- Image Upload -->
+            <div class="mb-3">
+                <label for="image" class="form-label">Upload Image</label>
+                <input type="file" name="listings[image]" class="form-control" required>
+                <div class="invalid-feedback">Please upload an image</div>
+            </div>
+
+            <div class="row">
+                <!-- Price -->
+                <div class="mb-3 col-md-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="number" placeholder="2100000" name="listings[price]" class="form-control" required>
+                    <div class="invalid-feedback">Please enter a valid price</div>
+                </div>
+
+                <!-- Location -->
+                <div class="mb-3 col-md-9">
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" placeholder="Pune, Maharashtra" name="listings[location]" class="form-control" required>
+                    <div class="invalid-feedback">Please enter the location</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Country -->
+                <div class="mb-3 col-md-3">
+                    <label for="country" class="form-label">Country</label>
+                    <input type="text" placeholder="India" name="listings[country]" class="form-control" required>
+                    <div class="invalid-feedback">Please enter country name</div>
+                </div>
+
+                <!-- Feature -->
+                <div class="mb-3 col-md-9">
+                    <label for="feature" class="form-label">Best Feature of Hotel</label>
+                    <select class="form-select" name="listings[feature]" style="cursor: pointer;">
+                        <option value="Farm House">Farm House</option>
+                        <option value="Mountains">Mountains</option>
+                        <option value="Pools">Pools</option>
+                        <option value="City">City</option>
+                        <option value="Arctic">Arctic</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button class="btn-submit">Add Listing</button>
+            </div>
+        </form>
+    </div>
+</body>
